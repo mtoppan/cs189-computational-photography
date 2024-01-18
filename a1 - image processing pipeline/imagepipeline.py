@@ -226,11 +226,18 @@ def compression(imArray):
 def main():
     im = io.imread('data/Thayer.tiff')
     imArray = pInitials(im)
+
+    darkness = 2044
+    saturation = 16383
+    r_mult = 2.165039
+    g_mult = 1.0
+    b_mult = 1.643555
+
     # io.imshow(imArray)
     # plt.savefig('./results/initials.jpg')
     # plt.show()
 
-    imArray = linearization(2044, 16383, imArray)
+    imArray = linearization(darkness, saturation, imArray)
     im_OG = imArray
     w = im_OG.shape[1]
     h = im_OG.shape[0]
@@ -261,7 +268,7 @@ def main():
 
     im_gw = grayWorldWB(im_rggb)
     im_ww = whiteWorldWB(im_rggb)
-    im_dcraw = dcrawWB(im_rggb, 2.165039, 1.0, 1.643555)
+    im_dcraw = dcrawWB(im_rggb, r_mult, g_mult, b_mult)
     im_manual = manualWB(im_rggb)
 
     io.imshow(im_manual)
